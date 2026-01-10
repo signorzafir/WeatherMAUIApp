@@ -94,7 +94,7 @@
 
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Now" Style="{StaticResource SubtleLabel}" />
-                            <Label Text="{Binding Today.CurrentText}"
+                            <Label Text="{Binding Today.CurrentTempText}"
                                    FontSize="48"
                                    FontAttributes="Bold"
                                    Style="{StaticResource PrimaryLabel}" />
@@ -114,7 +114,7 @@
                                 <Label Text="🥶" FontSize="18" Style="{StaticResource PrimaryLabel}" />
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="Feels like" Style="{StaticResource SubtleLabel}" />
-                                    <Label Text="{Binding Today.FeelsLikeText}"
+                                    <Label Text="{Binding Today.CurrentFeelsLikeText}"
                                            FontSize="16"
                                            FontAttributes="Bold"
                                            Style="{StaticResource PrimaryLabel}" />
@@ -131,7 +131,7 @@
                                 <Label Text="💧" FontSize="18" Style="{StaticResource PrimaryLabel}" />
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="Humidity" Style="{StaticResource SubtleLabel}" />
-                                    <Label Text="{Binding Today.Humidity}"
+                                    <Label Text="{Binding Today.CurrentHumidity}"
                                            FontSize="16"
                                            FontAttributes="Bold"
                                            Style="{StaticResource PrimaryLabel}" />
@@ -148,7 +148,7 @@
                                 <Label Text="📈" FontSize="18" Style="{StaticResource PrimaryLabel}" />
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="Max / Min" Style="{StaticResource SubtleLabel}" />
-                                    <Label Text="{Binding Today.MaxMinText}"
+                                    <Label Text="{Binding Today.TodayMaxMinText}"
                                            FontSize="16"
                                            FontAttributes="Bold"
                                            Style="{StaticResource PrimaryLabel}" />
@@ -174,7 +174,7 @@
                                     <Label Text="🌅" FontSize="18" Style="{StaticResource PrimaryLabel}" />
                                     <Label Text="Sunrise" Style="{StaticResource SubtleLabel}" />
                                 </HorizontalStackLayout>
-                                <Label Text="{Binding Today.SunriseText}"
+                                <Label Text="{Binding Today.TodaySunriseText}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        Style="{StaticResource PrimaryLabel}" />
@@ -187,7 +187,7 @@
                                     <Label Text="🌇" FontSize="18" Style="{StaticResource PrimaryLabel}" />
                                     <Label Text="Sunset" Style="{StaticResource SubtleLabel}" />
                                 </HorizontalStackLayout>
-                                <Label Text="{Binding Today.SunsetText}"
+                                <Label Text="{Binding Today.TodaySunsetText}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        Style="{StaticResource PrimaryLabel}" />
@@ -200,7 +200,7 @@
                                     <Label Text="⏱️" FontSize="18" Style="{StaticResource PrimaryLabel}" />
                                     <Label Text="Day length" Style="{StaticResource SubtleLabel}" />
                                 </HorizontalStackLayout>
-                                <Label Text="{Binding Today.DayDurationText}"
+                                <Label Text="{Binding Today.TodayDayDurationText}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        Style="{StaticResource PrimaryLabel}" />

@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherMAUIApp.Models;
+using WeatherMAUIApp.Models.Responses;
 
 namespace WeatherMAUIApp.Services
 {
@@ -19,24 +20,23 @@ namespace WeatherMAUIApp.Services
             var lonStr = lon.ToString(CultureInfo.InvariantCulture);
 
             var url =
-
             $"https://api.open-meteo.com/v1/forecast" +
             $"?latitude={latStr}&longitude={lonStr}" +
-            $"&current=temperature_2m" +
-            $"&hourly=relative_humidity_2m,apparent_temperature" +
-            $"&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset" +
+            $"&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m" +
+            $"&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,wind_speed_10m_max" +
             $"&timezone=auto";
 
             var response = await _http.GetFromJsonAsync<TodayResponse>(url)
                            ?? throw new Exception("Could not retreive weather data...");
 
-            int timeIndex = FindClosestHourIndex(response.Hourly.Time);
+            //int timeIndex = FindClosestHourIndex(response.Hourly.Time);
 
             var today = new TodayWeather
             {
                 CurrentTemp = response.Current.Temperature2m,
-                FeelsLike = response.Hourly.ApparentTemperature.Count > timeIndex ? response.Hourly.ApparentTemperature[timeIndex] : response.Current.Temperature2m,
-                Humidity = response.Hourly.RelativeHumidity2m.Count > timeIndex ? response.Hourly.RelativeHumidity2m[timeIndex] : 0,
+                CurrentFeelsLike = response.Current.ApparentTemperature,
+                CurrentWeatherCode = response.Current.WeatherCode,
+                CurrentHumidity = response.Current.RelativeHumidity2m,
                 MaxTemp = response.Daily.Temperature2mMax.FirstOrDefault(),
                 MinTemp = response.Daily.Temperature2mMin.FirstOrDefault(),
                 Sunrise = DateTime.Parse(response.Daily.Sunrise.First()),
@@ -45,29 +45,29 @@ namespace WeatherMAUIApp.Services
             return today;
         }
 
-        private static int FindClosestHourIndex(List<string> time)
-        {
-            if (time.Count == 0)
-                return 0;
-            var timeNow = DateTime.Now;
-            int closestIndex = 0;
-            TimeSpan closestDiff = TimeSpan.MaxValue;
+        //private static int FindClosestHourIndex(List<string> time)
+        //{
+        //    if (time.Count == 0)
+        //        return 0;
+        //    var timeNow = DateTime.Now;
+        //    int closestIndex = 0;
+        //    TimeSpan closestDiff = TimeSpan.MaxValue;
 
-            for (int i = 0; i < time.Count; i++)
-            {
-                if (DateTime.TryParse(time[i], out var t))
-                {
-                    var diff = (t - timeNow).Duration();
+        //    for (int i = 0; i < time.Count; i++)
+        //    {
+        //        if (DateTime.TryParse(time[i], out var t))
+        //        {
+        //            var diff = (t - timeNow).Duration();
 
-                    if (diff < closestDiff)
-                    {
-                        closestDiff = diff;
-                        closestIndex = i;
-                    }
-                }
-            }
-            return closestIndex;
-        }
+        //            if (diff < closestDiff)
+        //            {
+        //                closestDiff = diff;
+        //                closestIndex = i;
+        //            }
+        //        }
+        //    }
+        //    return closestIndex;
+        //}
 
         
         public async Task<List<ForecastDay>> GetDailyForecastAsync(double lat, double lon)
@@ -127,7 +127,7 @@ namespace WeatherMAUIApp.Services
             return result;
         }
 
-        private int CalculateDailyAverageHumidity(DateTime day, HourlyForecast h)
+        private int CalculateDailyAverageHumidity(DateTime day, ResponseHourlyBlock h)
         {
             if (h.Time.Count == 0 || h.RelativeHumidity2m.Count == 0)
                 return 0;

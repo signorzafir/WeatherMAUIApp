@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace WeatherMAUIApp.Models
+namespace WeatherMAUIApp.Models.Responses
 {
-    public class HourlyForecast
+    public class ResponseHourlyBlock
     {
         [JsonPropertyName("time")]
         public List<string> Time { get; set; } = new();

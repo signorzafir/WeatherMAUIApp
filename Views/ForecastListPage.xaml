@@ -1,46 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:WeatherMAUIApp.ViewModels"
-             x:Class="WeatherMAUIApp.Views.ForecastListPage"
-             Title="Forecast">
-
-
-    <VerticalStackLayout Padding="16" Spacing="12">
-
-        <Label Text="Choose city" FontAttributes="Bold" />
-
-        <Picker ItemsSource="{Binding Cities}"
-                ItemDisplayBinding="{Binding DisplayName}"
-                SelectedItem="{Binding SelectedCity}" />
-
-        <ActivityIndicator IsRunning="{Binding IsBusy}"
-                           IsVisible="{Binding IsBusy}" />
-
-        <Label Text="{Binding ErrorMessage}"
-               TextColor="Red"
-               IsVisible="{Binding HasError}" />
-
-        <CollectionView ItemsSource="{Binding Items}"
-                        SelectionMode="Single"
-                        SelectionChanged="OnSelectionChanged">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="12" Margin="0,6" CornerRadius="10">
-                        <HorizontalStackLayout Spacing="12">
-                            <Label Text="{Binding DateText}" WidthRequest="140"/>
-                            <Label Text="{Binding TempText}" />
-                        </HorizontalStackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <Button Text="Refresh"
-                Command="{Binding RefreshCommand}" />
-
-    </VerticalStackLayout>
-</ContentPage>-->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherMAUIApp.Views.ForecastListPage"
@@ -115,8 +73,10 @@
                                        FontSize="18"
                                        TextColor="White"
                                        Grid.Column="0" />-->
-                                <Label Text="{Binding WeatherIcon}" FontSize="22" TextColor="White" />
-                                
+                                <!--<Label Text="{Binding WeatherIcon}" FontSize="22" TextColor="White" />-->
+                                <Image Source="{Binding WeatherIcon}" WidthRequest="64" HeightRequest="64" />
+
+
                                 <!-- Date + Temp -->
                                 <VerticalStackLayout Grid.Column="1" Spacing="2">
                                     <Label Text="{Binding DateText}"
@@ -128,8 +88,8 @@
                                            FontSize="13"
                                            TextColor="#C9D4FF" />
                                     <Label Text="{Binding WeatherText}"
-FontSize="12"
-TextColor="#C9D4FF" />
+                                           FontSize="12"
+                                           TextColor="#C9D4FF" />
                                 </VerticalStackLayout>
 
                                 <!-- Chevron -->

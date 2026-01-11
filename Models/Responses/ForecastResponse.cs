@@ -11,7 +11,6 @@ namespace WeatherMAUIApp.Models.Responses
     {
         [JsonPropertyName("daily")]
         public ResponseDailyBlock Daily { get; set; } = new();
-        [JsonPropertyName("hourly")]
-        public ResponseHourlyBlock Hourly { get; set; } = new();
+
     }
 }

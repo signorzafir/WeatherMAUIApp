@@ -29,7 +29,6 @@ namespace WeatherMAUIApp.Services
             var response = await _http.GetFromJsonAsync<TodayResponse>(url)
                            ?? throw new Exception("Could not retreive weather data...");
 
-            //int timeIndex = FindClosestHourIndex(response.Hourly.Time);
 
             var today = new TodayWeather
             {
@@ -45,29 +44,6 @@ namespace WeatherMAUIApp.Services
             return today;
         }
 
-        //private static int FindClosestHourIndex(List<string> time)
-        //{
-        //    if (time.Count == 0)
-        //        return 0;
-        //    var timeNow = DateTime.Now;
-        //    int closestIndex = 0;
-        //    TimeSpan closestDiff = TimeSpan.MaxValue;
-
-        //    for (int i = 0; i < time.Count; i++)
-        //    {
-        //        if (DateTime.TryParse(time[i], out var t))
-        //        {
-        //            var diff = (t - timeNow).Duration();
-
-        //            if (diff < closestDiff)
-        //            {
-        //                closestDiff = diff;
-        //                closestIndex = i;
-        //            }
-        //        }
-        //    }
-        //    return closestIndex;
-        //}
 
         
         public async Task<List<ForecastDay>> GetDailyForecastAsync(double lat, double lon)
@@ -78,15 +54,13 @@ namespace WeatherMAUIApp.Services
             var url =
                 $"https://api.open-meteo.com/v1/forecast" +
                 $"?latitude={latStr}&longitude={lonStr}" +
-                $"&daily=temperature_2m_max,temperature_2m_min,weathercode,wind_speed_10m_max,precipitation_sum,sunrise,sunset" +
-                $"&hourly=relative_humidity_2m" +
+                $"&daily=temperature_2m_max,temperature_2m_min,weathercode,wind_speed_10m_max,precipitation_sum,sunrise,sunset,relative_humidity_2m_mean" +
                 $"&timezone=auto";
 
             var response = await _http.GetFromJsonAsync<ForecastResponse>(url)
                           ?? throw new Exception("No data returned from weather service.");
 
             var d = response.Daily;
-            var h = response.Hourly;
 
             int count = new[]
             {
@@ -106,9 +80,6 @@ namespace WeatherMAUIApp.Services
             {
                 var dayDate = DateTime.Parse(d.Time[i]).Date;
 
-                // Compute average humidity for that day from hourly arrays
-                int humidityAvg = CalculateDailyAverageHumidity(dayDate, h);
-
                 result.Add(new ForecastDay
                 {
                     Date = dayDate,
@@ -120,37 +91,14 @@ namespace WeatherMAUIApp.Services
                     PrecipitationSum = d.PrecipitationSum[i],
                     Sunrise = DateTime.Parse(d.Sunrise[i]),
                     Sunset = DateTime.Parse(d.Sunset[i]),
-                    HumidityAvg = humidityAvg
+                    HumidityAvg = d.RelativeHumidity2mMean[i]
                 });
             }
 
             return result;
         }
 
-        private int CalculateDailyAverageHumidity(DateTime day, ResponseHourlyBlock h)
-        {
-            if (h.Time.Count == 0 || h.RelativeHumidity2m.Count == 0)
-                return 0;
-
-            int count = Math.Min(h.Time.Count, h.RelativeHumidity2m.Count);
-
-            int sum = 0;
-            int n = 0;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (!DateTime.TryParse(h.Time[i], out var t))
-                    continue;
-
-                if (t.Date != day)
-                    continue;
-
-                sum += h.RelativeHumidity2m[i];
-                n++;
-            }
-
-            return n > 0 ? (int)Math.Round(sum / (double)n) : 0;
-        }
+        
     }
     
 }

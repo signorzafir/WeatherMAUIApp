@@ -1,63 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WeatherMAUIApp.Views.HomePage"
-             xmlns:vm="clr-namespace:WeatherMAUIApp.ViewModels"
-             Title="HomePage"
-             >
-    <ContentPage.BindingContext>
-        <vm:HomeViewModel />
-    </ContentPage.BindingContext>
-
-
-    <VerticalStackLayout Padding="16" Spacing="10">
-
-        <Label Text="{Binding Today.CityName}" FontSize="20" FontAttributes="Bold" />
-
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-
-        <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding HasError}" />
-
-        <Frame Padding="14" CornerRadius="12">
-            <VerticalStackLayout Spacing="8">
-                <Label Text="Now" FontAttributes="Bold"/>
-                <Label Text="{Binding Today.CurrentText}" FontSize="36" FontAttributes="Bold"/>
-
-                <Label Text="Feels like" />
-                <Label Text="{Binding Today.FeelsLikeText}" />
-
-                <Label Text="Humidity" />
-                <Label Text="{Binding Today.Humidity}" />
-
-                <Label Text="{Binding Today.MaxMinText}" FontAttributes="Bold"/>
-
-                <HorizontalStackLayout Spacing="20">
-                    <VerticalStackLayout>
-                        <Label Text="Sunrise" />
-                        <Label Text="{Binding Today.SunriseText}" />
-                    </VerticalStackLayout>
-
-                    <VerticalStackLayout>
-                        <Label Text="Sunset" />
-                        <Label Text="{Binding Today.SunsetText}" />
-                    </VerticalStackLayout>
-
-                    <VerticalStackLayout>
-                        <Label Text="Day length" />
-                        <Label Text="{Binding Today.DayDurationText}" />
-                    </VerticalStackLayout>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Frame>
-
-        <Button Text="Go to 7-day forecast"
-                Clicked="OnForecastClicked" />
-
-        <Button Text="Reload"
-                Command="{Binding LoadCommand}" />
-
-    </VerticalStackLayout>
-</ContentPage>-->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:WeatherMAUIApp.ViewModels"
@@ -89,15 +30,18 @@
                 <VerticalStackLayout Spacing="12">
 
                     <HorizontalStackLayout Spacing="12">
-                        <Label Text="🌡️" FontSize="24" Style="{StaticResource PrimaryLabel}" />
+                        <VerticalStackLayout>
+                            <Label Text="Now" Style="{StaticResource SubtleLabel}" />
 
+                            <Image Source="{Binding Today.WeatherIcon}" WidthRequest="64" HeightRequest="64" />
+                        </VerticalStackLayout>
 
                         <VerticalStackLayout Spacing="2">
-                            <Label Text="Now" Style="{StaticResource SubtleLabel}" />
                             <Label Text="{Binding Today.CurrentTempText}"
-                                   FontSize="48"
+                                   FontSize="35"
                                    FontAttributes="Bold"
-                                   Style="{StaticResource PrimaryLabel}" />
+                                   Style="{StaticResource PrimaryLabel}"
+                                   />
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 

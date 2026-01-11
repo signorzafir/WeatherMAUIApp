@@ -32,5 +32,9 @@ namespace WeatherMAUIApp.Models.Responses
 
         [JsonPropertyName("sunset")]
         public List<string> Sunset { get; set; } = new();
+
+        [JsonPropertyName("relative_humidity_2m_mean")]
+        public List<int> RelativeHumidity2mMean { get; set; } = new();
+
     }
 }

@@ -43,7 +43,9 @@
 
                     <!-- Icon + Condition -->
                     <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
-                        <Label Text="{Binding Day.WeatherIcon}" FontSize="50" />
+                        <!--<Label Text="{Binding Day.WeatherIcon}" FontSize="50" />-->
+                        <Image Source="{Binding Day.WeatherIcon}" WidthRequest="64" HeightRequest="64" />
+
                         <VerticalStackLayout Spacing="2">
                             <Label Text="{Binding Day.WeatherText}" FontSize="40" />
                             <Label Text="Forecast details"

@@ -18,6 +18,7 @@ namespace WeatherMAUIApp.Models
         public int CurrentWeatherCode { get; set; }
         public DateTime Sunrise { get; set; }
         public DateTime Sunset { get; set; }
+        public double CurrentWind { get; set; }
 
         public string CurrentTempText => $"{CurrentTemp:0}°C";
         public string CurrentFeelsLikeText => $"{CurrentFeelsLike:0}°C";
@@ -25,6 +26,8 @@ namespace WeatherMAUIApp.Models
         public string TodayMaxMinText => $"Max {MaxTemp:0}° / Min {MinTemp:0}°";
         public string TodaySunriseText => Sunrise.ToString("HH:mm");
         public string TodaySunsetText => Sunset.ToString("HH:mm");
+        public string CurrentWindText => $"{CurrentWind:0} km/h";
+
 
         public TimeSpan DayDuration => Sunset - Sunrise;
         public string TodayDayDurationText => $"{(int)DayDuration.TotalHours}h {DayDuration.Minutes}m";

@@ -39,7 +39,10 @@ namespace WeatherMAUIApp.Services
                 MaxTemp = response.Daily.Temperature2mMax.FirstOrDefault(),
                 MinTemp = response.Daily.Temperature2mMin.FirstOrDefault(),
                 Sunrise = DateTime.Parse(response.Daily.Sunrise.First()),
-                Sunset = DateTime.Parse(response.Daily.Sunset.First())
+                Sunset = DateTime.Parse(response.Daily.Sunset.First()),
+                PrecipitationSum = response.Current.Precipitation,
+                CurrentWind = response.Current.WindSpeed10m
+                
             };
             return today;
         }

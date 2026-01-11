@@ -13,37 +13,111 @@
     <ScrollView>
         <VerticalStackLayout Padding="18" Spacing="14">
 
-            <!-- Header -->
-            <VerticalStackLayout Spacing="2">
-                <Label Text="{Binding Today.CityName}" Style="{StaticResource TitleLabel}" />
-                <Label Text="Today overview" Style="{StaticResource SubtleLabel}" />
+            
+
+            <VerticalStackLayout Spacing="12" Padding="16,12">
+
+                <!-- Header + Loading -->
+                <Grid 
+                      RowDefinitions="Auto,Auto, Auto"
+                      RowSpacing="2">
+
+                    <ActivityIndicator Grid.Row="0" Grid.Column="0"
+                                       IsRunning="{Binding IsBusy}"
+                                       IsVisible="{Binding IsBusy}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center" />
+                    
+                    <Label Grid.Row="1"
+                           Text="{Binding Today.CityName}"
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Style="{StaticResource TitleLabel}" />
+
+
+                    <Label Grid.Row="2" Grid.Column="0"
+                           HorizontalOptions="Center"
+                           Text="Today overview"
+                           Style="{StaticResource SubtleLabel}" />
+                </Grid>
+
+                <!-- Error banner -->
+                <Border IsVisible="{Binding HasError}"
+                        BackgroundColor="{StaticResource CardBg}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="12">
+
+                    <Grid ColumnDefinitions="Auto,*"
+                          ColumnSpacing="10">
+
+                        <Label Text="⚠️"
+                               FontSize="16"
+                               VerticalOptions="Start" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding ErrorMessage}"
+                               TextColor="{StaticResource ErrorColor}"
+                               LineBreakMode="WordWrap" />
+                    </Grid>
+                </Border>
+
             </VerticalStackLayout>
 
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-
-            <Label Text="{Binding ErrorMessage}"
-                   TextColor="{StaticResource ErrorColor}"
-                   IsVisible="{Binding HasError}" />
 
             <!-- Main card -->
-            <Frame Style="{StaticResource CardFrame}">
+            <Frame Style="{StaticResource CardFrame}" MaximumWidthRequest="1000">
                 <VerticalStackLayout Spacing="12">
 
-                    <HorizontalStackLayout Spacing="12">
-                        <VerticalStackLayout>
-                            <Label Text="Now" Style="{StaticResource SubtleLabel}" />
+                    <Grid HorizontalOptions="Fill"
+                          VerticalOptions="Fill">
 
-                            <Image Source="{Binding Today.WeatherIcon}" WidthRequest="64" HeightRequest="64" />
-                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="Auto,Auto"
+                              ColumnSpacing="16"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center">
 
-                        <VerticalStackLayout Spacing="2">
-                            <Label Text="{Binding Today.CurrentTempText}"
-                                   FontSize="35"
-                                   FontAttributes="Bold"
-                                   Style="{StaticResource PrimaryLabel}"
-                                   />
-                        </VerticalStackLayout>
-                    </HorizontalStackLayout>
+                            <VerticalStackLayout Grid.Column="0"
+                                                 Spacing="4"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center">
+
+                                <Label Text="Now"
+                                       Style="{StaticResource SubtleLabel}"
+                                       HorizontalOptions="Center" />
+
+                                <Image Source="{Binding Today.WeatherIcon}"
+                                       HeightRequest="64"
+                                       WidthRequest="64"
+                                       HorizontalOptions="Center" />
+
+                                <Label Text="{Binding Today.WeatherText}"
+                                       FontSize="18"
+                                       Style="{StaticResource SubtleLabel}"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center">
+                                
+                                <Label Text="{Binding Today.CurrentTempText}"
+                                       FontSize="48"
+                                       FontAttributes="Bold"
+                                       Style="{StaticResource PrimaryLabel}"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center" />
+
+                                <Label Text="{Binding Today.TodayMaxMinText}"
+                                       Style="{StaticResource SubtleLabel}" />
+                            </VerticalStackLayout>
+                            
+
+                        </Grid>
+                    </Grid>
+
+
 
                     <BoxView HeightRequest="1" Opacity="0.25" />
 
@@ -55,7 +129,44 @@
                                HasShadow="False"
                                BackgroundColor="#22305A">
                             <HorizontalStackLayout Spacing="10">
-                                <Label Text="🥶" FontSize="18" Style="{StaticResource PrimaryLabel}" />
+                                <Image Source="umbrella_100.png" Style="{StaticResource IconSecondary}" />
+
+                                <VerticalStackLayout Spacing="0">
+                                    <Label Text="Precipitation" Style="{StaticResource SubtleLabel}" />
+                                    <Label Text="{Binding Today.CurrentPrecipText}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           Style="{StaticResource PrimaryLabel}" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Frame>
+                        
+                        <Frame Grid.Row="0" Grid.Column="1"
+                               CornerRadius="14"
+                               Padding="12"
+                               HasShadow="False"
+                               BackgroundColor="#22305A">
+                            <HorizontalStackLayout Spacing="10">
+                                <Image Source="windsock_100.png" Style="{StaticResource IconSecondary}" />
+
+                                <VerticalStackLayout Spacing="0">
+                                    <Label Text="Wind Speed" Style="{StaticResource SubtleLabel}" />
+                                    <Label Text="{Binding Today.CurrentWindText}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           Style="{StaticResource PrimaryLabel}" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Frame>
+
+                        <Frame Grid.Row="1" Grid.Column="0"
+                               CornerRadius="14"
+                               Padding="12"
+                               HasShadow="False"
+                               BackgroundColor="#22305A">
+                            <HorizontalStackLayout Spacing="10">
+                                <Image Source="diagonal_lines_100.png" Style="{StaticResource IconSecondary}" />
+
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="Feels like" Style="{StaticResource SubtleLabel}" />
                                     <Label Text="{Binding Today.CurrentFeelsLikeText}"
@@ -66,13 +177,14 @@
                             </HorizontalStackLayout>
                         </Frame>
 
-                        <Frame Grid.Row="0" Grid.Column="1"
+                        <Frame Grid.Row="1" Grid.Column="1"
                                CornerRadius="14"
                                Padding="12"
                                HasShadow="False"
                                BackgroundColor="#22305A">
                             <HorizontalStackLayout Spacing="10">
-                                <Label Text="💧" FontSize="18" Style="{StaticResource PrimaryLabel}" />
+                                <Image Source="hygrometer_100.png" Style="{StaticResource IconSecondary}" />
+
                                 <VerticalStackLayout Spacing="0">
                                     <Label Text="Humidity" Style="{StaticResource SubtleLabel}" />
                                     <Label Text="{Binding Today.CurrentHumidity}"
@@ -83,22 +195,7 @@
                             </HorizontalStackLayout>
                         </Frame>
 
-                        <Frame Grid.Row="1" Grid.ColumnSpan="2"
-                               CornerRadius="14"
-                               Padding="12"
-                               HasShadow="False"
-                               BackgroundColor="#22305A">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="📈" FontSize="18" Style="{StaticResource PrimaryLabel}" />
-                                <VerticalStackLayout Spacing="0">
-                                    <Label Text="Max / Min" Style="{StaticResource SubtleLabel}" />
-                                    <Label Text="{Binding Today.TodayMaxMinText}"
-                                           FontSize="16"
-                                           FontAttributes="Bold"
-                                           Style="{StaticResource PrimaryLabel}" />
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </Frame>
+                        
 
                     </Grid>
 
@@ -106,50 +203,104 @@
             </Frame>
 
             <!-- Sun card -->
-            <Frame Style="{StaticResource CardFrame}">
+            <Frame Style="{StaticResource CardFrame}"
+                   MaximumWidthRequest="1000">
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="Sun" FontAttributes="Bold" FontSize="16" Style="{StaticResource PrimaryLabel}" />
+                    <Label Text="Daylight"
+                           FontAttributes="Bold" 
+                           FontSize="16" 
+                           HorizontalOptions="Center"
+                           Style="{StaticResource PrimaryLabel}" />
 
                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="14">
 
-                        <Frame Grid.Column="0" CornerRadius="14" Padding="12" HasShadow="False" BackgroundColor="#22305A">
-                            <VerticalStackLayout Spacing="2">
-                                <HorizontalStackLayout Spacing="8">
-                                    <Label Text="🌅" FontSize="18" Style="{StaticResource PrimaryLabel}" />
-                                    <Label Text="Sunrise" Style="{StaticResource SubtleLabel}" />
-                                </HorizontalStackLayout>
-                                <Label Text="{Binding Today.TodaySunriseText}"
+                        <Frame Grid.Column="0"
+                               CornerRadius="14"
+                               Padding="12"
+                               HasShadow="False"
+                               BackgroundColor="#22305A">
+
+                            <Grid RowDefinitions="Auto,Auto"
+                                  ColumnDefinitions="Auto,*"
+                                  RowSpacing="6"
+                                  ColumnSpacing="8">
+
+                                <!-- Header -->
+                                <Image Grid.Row="0" Grid.Column="0"
+                                       Source="sunrise_100.png"
+                                       HeightRequest="18"
+                                       WidthRequest="18"
+                                       VerticalOptions="Center"
+                                       Style="{StaticResource IconSecondary}" />
+
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Text="Sunrise"
+                                       VerticalOptions="Center"
+                                       Style="{StaticResource SubtleLabel}" />
+
+                                <!-- Value -->
+                                <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                       Text="{Binding Today.TodaySunriseText}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        Style="{StaticResource PrimaryLabel}" />
-                            </VerticalStackLayout>
+                            </Grid>
+
                         </Frame>
 
+
                         <Frame Grid.Column="1" CornerRadius="14" Padding="12" HasShadow="False" BackgroundColor="#22305A">
-                            <VerticalStackLayout Spacing="2">
+                            <VerticalStackLayout Spacing="4">
                                 <HorizontalStackLayout Spacing="8">
-                                    <Label Text="🌇" FontSize="18" Style="{StaticResource PrimaryLabel}" />
-                                    <Label Text="Sunset" Style="{StaticResource SubtleLabel}" />
+                                    <Image Source="sunset_100.png" 
+                                           Style="{StaticResource IconSecondary}"
+                                           VerticalOptions="Center"/>
+
+                                    <Label Text="Sunset"
+                                           Style="{StaticResource SubtleLabel}"
+                                           VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
                                 <Label Text="{Binding Today.TodaySunsetText}"
                                        FontSize="16"
                                        FontAttributes="Bold"
-                                       Style="{StaticResource PrimaryLabel}" />
+                                       Style="{StaticResource PrimaryLabel}"
+                                       />
                             </VerticalStackLayout>
                         </Frame>
 
-                        <Frame Grid.Column="2" CornerRadius="14" Padding="12" HasShadow="False" BackgroundColor="#22305A">
-                            <VerticalStackLayout Spacing="2">
+                        
+                        <Frame Grid.Column="2"
+                               CornerRadius="14"
+                               Padding="12"
+                               HasShadow="False"
+                               BackgroundColor="#22305A">
+
+                            <VerticalStackLayout Spacing="4">
+
                                 <HorizontalStackLayout Spacing="8">
-                                    <Label Text="⏱️" FontSize="18" Style="{StaticResource PrimaryLabel}" />
-                                    <Label Text="Day length" Style="{StaticResource SubtleLabel}" />
+
+                                    <Image Source="clock_100.png"
+                                           Style="{StaticResource IconSecondary}"
+                                           VerticalOptions="Center" />
+
+                                    <Label Text="Day length"
+                                           Style="{StaticResource SubtleLabel}"
+                                           VerticalOptions="Center" />
+
                                 </HorizontalStackLayout>
+
                                 <Label Text="{Binding Today.TodayDayDurationText}"
                                        FontSize="16"
                                        FontAttributes="Bold"
                                        Style="{StaticResource PrimaryLabel}" />
+
                             </VerticalStackLayout>
+
                         </Frame>
+
+
+
+
 
                     </Grid>
                 </VerticalStackLayout>
@@ -157,11 +308,13 @@
 
             <Button Text="Go to 7-day forecast"
                     Style="{StaticResource PrimaryButton}"
-                    Clicked="OnForecastClicked" />
+                    Clicked="OnForecastClicked" 
+                    MaximumWidthRequest="400"/>
 
             <Button Text="Reload"
                     Style="{StaticResource PrimaryButton}"
-                    Command="{Binding LoadCommand}" />
+                    Command="{Binding LoadCommand}"
+                    MaximumWidthRequest="400"/>
 
         </VerticalStackLayout>
     </ScrollView>

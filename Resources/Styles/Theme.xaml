@@ -60,6 +60,16 @@
         <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
     </Style>
 
+    <Style x:Key="IconPrimary" TargetType="Image">
+        <Setter Property="WidthRequest" Value="70" />
+        <Setter Property="HeightRequest" Value="70"/>
+    </Style>
+
+    <Style x:Key="IconSecondary" TargetType="Image">
+        <Setter Property="WidthRequest" Value="25" />
+        <Setter Property="HeightRequest" Value="25"/>
+    </Style>
+
 
 
 </ResourceDictionary>

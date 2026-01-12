@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 using WeatherMAUIApp.Models;
 using WeatherMAUIApp.Services;
@@ -108,6 +109,7 @@ public class ForecastListViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+        
     }
 }
 

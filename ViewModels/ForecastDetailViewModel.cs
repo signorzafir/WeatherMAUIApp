@@ -21,7 +21,7 @@ namespace WeatherMAUIApp.ViewModels
         public string TempText => Day.TempText;
         public int WeatherCode => Day.WeatherCode;
 
-        public string BigTempText => $"{Day.MaxTemp:0}°";
+        //public string AvgTempText => $"{Day.AvgTemp:0}°";
         public string MinMaxText => $"Min {Day.MinTemp:0}°  •  Max {Day.MaxTemp:0}°";
         public string WindText => Day.WindText;
         public string PrecipText => Day.PrecipText;

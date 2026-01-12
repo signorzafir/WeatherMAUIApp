@@ -16,7 +16,7 @@ namespace WeatherMAUIApp.ViewModels
 
         private TodayWeather? _today;
 
-        public TodayWeather Today
+        public TodayWeather? Today
         {
             get { return _today; }
             set

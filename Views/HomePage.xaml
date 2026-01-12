@@ -11,7 +11,8 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout Padding="18" Spacing="14">
+        <VerticalStackLayout Padding="18" Spacing="14" 
+                             MaximumWidthRequest="1000">
 
             
 
@@ -32,12 +33,10 @@
                            Text="{Binding Today.CityName}"
                            FontSize="Large"
                            FontAttributes="Bold"
-                           HorizontalOptions="Center"
                            Style="{StaticResource TitleLabel}" />
 
 
                     <Label Grid.Row="2" Grid.Column="0"
-                           HorizontalOptions="Center"
                            Text="Today overview"
                            Style="{StaticResource SubtleLabel}" />
                 </Grid>
@@ -67,7 +66,7 @@
 
 
             <!-- Main card -->
-            <Frame Style="{StaticResource CardFrame}" MaximumWidthRequest="1000">
+            <Frame Style="{StaticResource CardFrame}">
                 <VerticalStackLayout Spacing="12">
 
                     <Grid HorizontalOptions="Fill"
@@ -202,7 +201,7 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Sun card -->
+            <!-- Sun -->
             <Frame Style="{StaticResource CardFrame}"
                    MaximumWidthRequest="1000">
                 <VerticalStackLayout Spacing="12">
@@ -228,8 +227,6 @@
                                 <!-- Header -->
                                 <Image Grid.Row="0" Grid.Column="0"
                                        Source="sunrise_100.png"
-                                       HeightRequest="18"
-                                       WidthRequest="18"
                                        VerticalOptions="Center"
                                        Style="{StaticResource IconSecondary}" />
 

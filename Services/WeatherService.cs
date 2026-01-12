@@ -57,7 +57,7 @@ namespace WeatherMAUIApp.Services
             var url =
                 $"https://api.open-meteo.com/v1/forecast" +
                 $"?latitude={latStr}&longitude={lonStr}" +
-                $"&daily=temperature_2m_max,temperature_2m_min,weathercode,wind_speed_10m_max,precipitation_sum,sunrise,sunset,relative_humidity_2m_mean" +
+                $"&daily=temperature_2m_max,temperature_2m_min,weathercode,wind_speed_10m_max,precipitation_sum,sunrise,sunset,relative_humidity_2m_mean,apparent_temperature_mean" +
                 $"&timezone=auto";
 
             var response = await _http.GetFromJsonAsync<ForecastResponse>(url)
@@ -68,13 +68,15 @@ namespace WeatherMAUIApp.Services
             int count = new[]
             {
             d.Time.Count,
+
             d.Temperature2mMax.Count,
             d.Temperature2mMin.Count,
             d.WeatherCode.Count,
             d.WindSpeed10mMax.Count,
             d.PrecipitationSum.Count,
             d.Sunrise.Count,
-            d.Sunset.Count
+            d.Sunset.Count,
+            d.AvgApparentTemperature.Count
         }.Min();
 
             var result = new List<ForecastDay>();
@@ -94,7 +96,9 @@ namespace WeatherMAUIApp.Services
                     PrecipitationSum = d.PrecipitationSum[i],
                     Sunrise = DateTime.Parse(d.Sunrise[i]),
                     Sunset = DateTime.Parse(d.Sunset[i]),
-                    HumidityAvg = d.RelativeHumidity2mMean[i]
+                    HumidityAvg = d.RelativeHumidity2mMean[i],
+                    FeelsLike = d.AvgApparentTemperature[i]
+                    
                 });
             }
 

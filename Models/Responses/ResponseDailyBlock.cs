@@ -36,5 +36,8 @@ namespace WeatherMAUIApp.Models.Responses
         [JsonPropertyName("relative_humidity_2m_mean")]
         public List<int> RelativeHumidity2mMean { get; set; } = new();
 
+        [JsonPropertyName("apparent_temperature_mean")]
+        public List<double> AvgApparentTemperature { get; set; } = new();
+
     }
 }

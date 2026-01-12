@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:WeatherMAUIApp.ViewModels"
-             
-             x:Class="WeatherMAUIApp.Views.ForecastDetailPage"
-             Title="Details">
-    
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="{Binding CityName}" FontSize="20" FontAttributes="Bold" />
-        <Label Text="{Binding DateText}" FontSize="24" FontAttributes="Bold" />
-        <Label Text="{Binding TempText}" FontSize="18" />
-        <Label Text="{Binding WeatherCode}" FontSize="18" />
-    </VerticalStackLayout>
-</ContentPage>-->
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherMAUIApp.Views.ForecastDetailPage"
-             Title="Details">
+             Title="Details"
+             Style="{StaticResource PageBackground}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="18" Spacing="14">
+        <VerticalStackLayout Padding="18" 
+                             Spacing="14"
+                             MaximumWidthRequest="1000">
 
             <!-- Header -->
             <VerticalStackLayout Spacing="2">
                 <Label Text="{Binding CityName}"
-                       FontSize="20"
+                       FontSize="Large"
                        FontAttributes="Bold" />
 
                 <Label Text="{Binding DateText}"
-                       FontSize="14"
-                       Opacity="0.75" />
+                       FontSize="Subtitle"
+                       Opacity="0.8" />
             </VerticalStackLayout>
 
             <!-- Main Card -->
@@ -40,128 +30,141 @@
                    BackgroundColor="#1A2440">
 
                 <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout HorizontalOptions="Center">
 
-                    <!-- Icon + Condition -->
-                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
-                        <!--<Label Text="{Binding Day.WeatherIcon}" FontSize="50" />-->
-                        <Image Source="{Binding Day.WeatherIcon}" WidthRequest="64" HeightRequest="64" />
+                        <HorizontalStackLayout Spacing="12" 
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center">
+                            <Image Source="{Binding Day.WeatherIcon}"
+                               Style="{StaticResource IconPrimary}"
+                               />
 
-                        <VerticalStackLayout Spacing="2">
-                            <Label Text="{Binding Day.WeatherText}" FontSize="40" />
-                            <Label Text="Forecast details"
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Day.WeatherText}" FontSize="40" />
+                                <Label Text="Forecast details"
                                    FontSize="15"
                                    Opacity="0.75" />
-                        </VerticalStackLayout>
-                    </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
 
-                    <!-- Big Temp -->
-                    <Label Text="{Binding BigTempText}"
+                        <Label Text="{Binding Day.AvgTempText}"
                            FontSize="65"
                            FontAttributes="Bold"
-                           HorizontalOptions="Start" />
+                           HorizontalOptions="Center" />
 
-                    <Label Text="{Binding MinMaxText}"
+                        <Label Text="{Binding MinMaxText}"
                            FontSize="14"
-                           Opacity="0.8" />
+                           Opacity="0.8"
+                           HorizontalOptions="Center"/>
+                        <HorizontalStackLayout Margin = "0, 15, 0, 0" Spacing="8">
+                            <Label Text="Sunrise" FontSize="15"/>
+                            <Label Text="{Binding SunriseText}" FontSize="15"/>
+                            <HorizontalStackLayout Spacing="3">
 
-                    <!-- Divider -->
+                                <Image Source="sunrise_100.png" WidthRequest="20"/>
+                                <Image Source="whitehalfcircle_100.png" WidthRequest="20"/>
+                                <Image Source="sunset_100.png" WidthRequest="20"/>
+
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding SunsetText}" FontSize="15" />
+                            <Label Text="Sunset" FontSize="15"/>
+
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+
                     <BoxView HeightRequest="1" Opacity="0.25" />
 
                     <!-- Detail grid -->
-                    <Grid ColumnDefinitions="*,*" 
-                          RowDefinitions="Auto,Auto,auto" 
-                          ColumnSpacing="14" 
-                          RowSpacing="10">
 
-                        <Frame Grid.Row="0" Grid.Column="0"
-                               CornerRadius="14"
-                               Padding="12"
-                               HasShadow="False"
-                               BackgroundColor="#22305A">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="🌡️" FontSize="30" />
-                                <VerticalStackLayout Spacing="0">
-                                    <Label Text="Min / Max" FontSize="12" Opacity="0.75"/>
-                                    <Label Text="{Binding TempText}" FontSize="16" FontAttributes="Bold"/>
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </Frame>
-
-                        <!-- Wind -->
-                        <Frame Grid.Row="0" Grid.Column="1"
-                               CornerRadius="14"
-                               Padding="12"
-                               HasShadow="False"
-                               BackgroundColor="#22305A">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="💨" FontSize="30" />
-                                <VerticalStackLayout Spacing="0">
-                                    <Label Text="Wind" FontSize="12" Opacity="0.75"/>
-                                    <Label Text="{Binding WindText}" FontSize="16" FontAttributes="Bold"/>
-
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </Frame>
-                        <!--Precipitation-->
-                        <Frame Grid.Row="1" 
-                               Grid.Column="0"
-                               
-                               CornerRadius="14"
-                               Padding="12"
-                               HasShadow="False"
-                               BackgroundColor="#22305A">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="☔" FontSize="30" />
-                                <VerticalStackLayout Spacing="0">
-                                    <Label Text="Precipitation" FontSize="12" Opacity="0.75"/>
-                                    <!--<Label Text="(add later)" FontSize="16" FontAttributes="Bold"/>-->
-                                    <Label Text="{Binding PrecipText}" FontSize="16" FontAttributes="Bold"/>
-
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </Frame>
+                    <Grid RowDefinitions="auto,auto,auto,auto,auto"
+                          >
+                        <Grid ColumnDefinitions="auto,auto,*"
+                              ColumnSpacing="15"
+                              Padding="12"
+                              BackgroundColor="{StaticResource BgTop}">
+                            
+                            <Image Grid.Column="0" 
+                                   Source="diagonal_lines_100.png" 
+                                   Style="{StaticResource IconSecondary}"/>
+                            <Label Grid.Column="1" 
+                                   Text="Feels Like"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3" 
+                                   Text="{Binding Day.FeelsLikeText}"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
                         
-                        <!--Humidity-->
-                        <Frame Grid.Row="1" Grid.Column="1" 
-                               CornerRadius="14" 
-                               Padding="12" HasShadow="False" 
-                               BackgroundColor="#22305A">
-                            <HorizontalStackLayout Spacing="10">
-                                <Label Text="💧" FontSize="30" />
-                                <VerticalStackLayout Spacing="0">
-                                    <Label Text="Humidity" FontSize="12" Opacity="0.75"/>
-                                    <Label Text="{Binding HumidityText}" FontSize="16" FontAttributes="Bold"/>
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </Frame>
+                        <Grid Grid.Row="1"
+                              ColumnDefinitions="auto,auto,*"
+                              ColumnSpacing="15"
+                              Padding="12">
+                            
+                            <Image Grid.Column="0" 
+                                   Source="hygrometer_100.png" 
+                                   Style="{StaticResource IconSecondary}"/>
+                            <Label Grid.Column="1" 
+                                   Text="Humidity"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3" 
+                                   Text="{Binding HumidityText}"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
+                        <Grid Grid.Row="2"
+                              ColumnDefinitions="auto,auto,*"
+                              ColumnSpacing="15"
+                              Padding="12"
+                              BackgroundColor="{StaticResource BgTop}">
+                            
+                            <Image Grid.Column="0" 
+                                   Source="windsock_100.png" 
+                                   Style="{StaticResource IconSecondary}"/>
+                            <Label Grid.Column="1" 
+                                   Text="Wind gusts"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3" 
+                                   Text="{Binding WindText}"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
+                        <Grid Grid.Row="3"
+                              ColumnDefinitions="auto,auto,*"
+                              ColumnSpacing="15"
+                              Padding="12"
+                              >
+                            
+                            <Image Grid.Column="0" 
+                                   Source="umbrella_100.png" 
+                                   Style="{StaticResource IconSecondary}"/>
+                            <Label Grid.Column="1" 
+                                   Text="Precipitation"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3" 
+                                   Text="{Binding PrecipText}"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
+                        <Grid Grid.Row="4"
+                              ColumnDefinitions="auto,auto,*"
+                              ColumnSpacing="15"
+                              Padding="12"
+                              BackgroundColor="{StaticResource BgTop}">
+                            
+                            <Image Grid.Column="0" 
+                                   Source="sun_100.png" 
+                                   Style="{StaticResource IconSecondary}"/>
+                            <Label Grid.Column="1" 
+                                   Text="Day Duration"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="3" 
+                                   Text="{Binding DayDurationText}"
+                                   HorizontalTextAlignment="End"/>
+                        </Grid>
+                        
 
-                        <!--Sunrise/Sunset-->
-                        <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                               CornerRadius="14" Padding="12" 
-                               HasShadow="False" 
-                               BackgroundColor="#22305A">
-                            <VerticalStackLayout Spacing="6">
-                                <HorizontalStackLayout Spacing="10">
-                                    <Label Text="🌅" FontSize="30"/>
-                                    <Label Text="{Binding SunriseText}" FontAttributes="Bold"/>
-                                </HorizontalStackLayout>
 
-                                <HorizontalStackLayout Spacing="10">
-                                    <Label Text="🌇" FontSize="30"/>
-                                    <Label Text="{Binding SunsetText}" FontAttributes="Bold"/>
-                                </HorizontalStackLayout>
-
-                                <HorizontalStackLayout Spacing="10">
-                                    <Label Text="⏱️" FontSize="30"/>
-                                    <Label Text="{Binding DayDurationText}" FontAttributes="Bold"/>
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
-                        </Frame>
-
-
-
+                        
+                       
+                        
                     </Grid>
-
                 </VerticalStackLayout>
             </Frame>
 

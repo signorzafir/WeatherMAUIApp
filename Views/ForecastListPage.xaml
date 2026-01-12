@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherMAUIApp.Views.ForecastListPage"
+             xmlns:models="clr-namespace:WeatherMAUIApp.Models"
+             xmlns:vm="clr-namespace:WeatherMAUIApp.ViewModels"
+             x:DataType="vm:ForecastListViewModel"
              Title="Forecast"
              Style="{StaticResource PageBackground}"
              >
@@ -60,7 +63,7 @@
                             MaximumWidthRequest="1000">
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:ForecastDay">
 
                         <Frame BackgroundColor="#1A2440"
                                CornerRadius="16"
